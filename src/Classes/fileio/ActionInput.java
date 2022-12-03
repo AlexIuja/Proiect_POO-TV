@@ -6,6 +6,11 @@ public class ActionInput {
     private String feature;
     private CredentialsInput credentials;
     private FilterInput filters;
+    private String startsWith;
+    private String movie;
+    private String objectType;
+    private int count;
+    private int rate;
 
     public ActionInput() {
     }
@@ -50,6 +55,46 @@ public class ActionInput {
         this.filters = filters;
     }
 
+    public String getStartsWith() {
+        return startsWith;
+    }
+
+    public void setStartsWith(String startsWith) {
+        this.startsWith = startsWith;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    public String getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(String objectType) {
+        this.objectType = objectType;
+    }
+
     @Override
     public String toString() {
         return "ActionInput{" +
@@ -58,6 +103,11 @@ public class ActionInput {
                 ", feature='" + feature + '\'' +
                 ", credentials=" + credentials +
                 ", filters=" + filters +
+                ", startsWith='" + startsWith + '\'' +
+                ", movie='" + movie + '\'' +
+                ", objectType='" + objectType + '\'' +
+                ", count=" + count +
+                ", rate=" + rate +
                 '}';
     }
 }
