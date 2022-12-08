@@ -6,6 +6,7 @@ import Classes.Packet.Site;
 public class ActionVisitorImpl implements ActionVisitor{
     @Override
     public Output visit(ChangePage changePage, Site site) {
+        int a;
         return null;
     }
 
