@@ -52,8 +52,7 @@ public class CredentialsInput {
 
     @Override
     public String toString() {
-        return "CredentialsInput{" +
-                "name='" + name + '\'' +
+        return "{name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", accountType='" + accountType + '\'' +
                 ", country='" + country + '\'' +

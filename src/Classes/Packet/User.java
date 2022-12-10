@@ -1,67 +1,115 @@
 package Classes.Packet;
 
+import Classes.fileio.CredentialsInput;
 import Classes.fileio.UserInput;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 
 public class User {
-    private String name;
-    private String password;
-    private String accountType;
-    private String country;
-    private int balance;
+
+    private CredentialsInput credentials;
+    private int tokensCount;
+    private int numFreePremiumMovies;
+    private ArrayList<Movie> purchasedMovies = new ArrayList<>();
+    private ArrayList<Movie> watchedMovies = new ArrayList<>();
+    private ArrayList<Movie> likedMovies = new ArrayList<>();
+    private ArrayList<Movie> ratedMovies = new ArrayList<>();
+    @JsonIgnore
+    private ArrayList<Movie> allowedMovies = new ArrayList<>();
+
+    public User() {
+        tokensCount = 0;
+        numFreePremiumMovies = 15;
+    }
+
 
     public User(UserInput input) {
-        name = input.getCredentials().getName();
-        password = input.getCredentials().getPassword();
-        accountType = input.getCredentials().getAccountType();
-        country = input.getCredentials().getCountry();
-        balance = input.getCredentials().getBalance();
+        credentials = input.getCredentials();
+        tokensCount = 0;
+        numFreePremiumMovies = 15;
     }
 
     public User(User input) {
-        this.name = input.name;
-        this.password = input.password;
-        this.accountType = input.accountType;
-        this.country = input.country;
-        this.balance = input.balance;
+        this.credentials = input.getCredentials();
+        tokensCount = 0;
+        numFreePremiumMovies = 15;
     }
 
-    public String getName() {
-        return name;
+    public CredentialsInput getCredentials() {
+        return credentials;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCredentials(CredentialsInput credentials) {
+        this.credentials = credentials;
     }
 
-    public String getPassword() {
-        return password;
+    public int getTokensCount() {
+        return tokensCount;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTokensCount(int tokensCount) {
+        this.tokensCount = tokensCount;
     }
 
-    public String getAccountType() {
-        return accountType;
+    public int getNumFreePremiumMovies() {
+        return numFreePremiumMovies;
     }
 
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
+    public void setNumFreePremiumMovies(int numFreePremiumMovies) {
+        this.numFreePremiumMovies = numFreePremiumMovies;
     }
 
-    public String getCountry() {
-        return country;
+    public ArrayList<Movie> getPurchasedMovies() {
+        return purchasedMovies;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setPurchasedMovies(ArrayList<Movie> purchasedMovies) {
+        this.purchasedMovies = purchasedMovies;
     }
 
-    public int getBalance() {
-        return balance;
+    public ArrayList<Movie> getWatchedMovies() {
+        return watchedMovies;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void setWatchedMovies(ArrayList<Movie> watchedMovies) {
+        this.watchedMovies = watchedMovies;
+    }
+
+    public ArrayList<Movie> getLikedMovies() {
+        return likedMovies;
+    }
+
+    public void setLikedMovies(ArrayList<Movie> likedMovies) {
+        this.likedMovies = likedMovies;
+    }
+
+    public ArrayList<Movie> getRatedMovies() {
+        return ratedMovies;
+    }
+
+    public void setRatedMovies(ArrayList<Movie> ratedMovies) {
+        this.ratedMovies = ratedMovies;
+    }
+
+    public ArrayList<Movie> getAllowedMovies() {
+        return allowedMovies;
+    }
+
+    public void setAllowedMovies(ArrayList<Movie> allowedMovies) {
+        this.allowedMovies = allowedMovies;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "credentials=" + credentials +
+                ", tokensCount=" + tokensCount +
+                ", numFreePremiumMovies=" + numFreePremiumMovies +
+                ", purchasedMovies=" + purchasedMovies +
+                ", watchedMovies=" + watchedMovies +
+                ", likedMovies=" + likedMovies +
+                ", ratedMovies=" + ratedMovies +
+                '}';
     }
 }

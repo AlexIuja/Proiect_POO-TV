@@ -6,26 +6,17 @@ import Classes.fileio.ActionInput;
 
 public class Search implements Action{
     private String type;
-    private String page;
     private String feature;
     private String startsWith;
     private Site site;
 
     public Search(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         startsWith = input.getStartsWith();
         this.site = site;
     }
 
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
 
     public String getType() {
         return type;

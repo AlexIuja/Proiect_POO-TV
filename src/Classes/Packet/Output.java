@@ -36,4 +36,13 @@ public class Output {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    @Override
+    public String toString() {
+        return "Output{" +
+                "error='" + error + '\'' +
+                ", currentMoviesList=" + currentMoviesList +
+                ", currentUser=" + currentUser +
+                '}';
+    }
 }

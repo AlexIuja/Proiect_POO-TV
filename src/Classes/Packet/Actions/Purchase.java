@@ -9,7 +9,6 @@ public class Purchase implements Action{
     private String feature;
     private String objectType;
     private String movie;
-    private String page;
     private Site site;
 
     public Purchase(ActionInput input, Site site) {
@@ -17,7 +16,6 @@ public class Purchase implements Action{
         feature = input.getFeature();
         objectType = input.getObjectType();
         movie = input.getMovie();
-        page = input.getPage();
         this.site = site;
     }
 
@@ -35,14 +33,6 @@ public class Purchase implements Action{
 
     public void setMovie(String movie) {
         this.movie = movie;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
     }
 
     public String getType() {

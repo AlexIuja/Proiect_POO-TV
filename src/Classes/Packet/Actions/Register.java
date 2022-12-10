@@ -7,14 +7,12 @@ import Classes.fileio.CredentialsInput;
 
 public class Register implements Action{
     private String type;
-    private String page;
     private String feature;
     private CredentialsInput credentials;
     private Site site;
 
     public Register(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         credentials = input.getCredentials();
         this.site = site;
@@ -28,13 +26,6 @@ public class Register implements Action{
         this.site = site;
     }
 
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
 
     public String getType() {
         return type;

@@ -2,6 +2,6 @@ package Classes.Packet.Pages;
 
 public class MoviesPage extends SitePage{
     public MoviesPage() {
-        super("Movies");
+        super("movies");
     }
 }

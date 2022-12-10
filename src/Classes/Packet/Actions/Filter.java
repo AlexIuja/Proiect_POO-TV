@@ -8,7 +8,6 @@ import Classes.fileio.SortInput;
 
 public class Filter implements Action{
     private String type;
-    private String page;
     private String feature;
     private SortInput sort;
     private ContainsInput contains;
@@ -16,19 +15,10 @@ public class Filter implements Action{
 
     public Filter(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         sort = input.getFilters().getSort();
         contains = input.getFilters().getContains();
         this.site = site;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
     }
 
     public String getType() {

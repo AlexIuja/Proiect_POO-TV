@@ -6,7 +6,6 @@ import Classes.fileio.ActionInput;
 
 public class Rate implements Action{
     private String type;
-    private String page;
     private String feature;
     private String objectType;
     private String movie;
@@ -16,7 +15,6 @@ public class Rate implements Action{
 
     public Rate(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         objectType = input.getObjectType();
         movie = input.getMovie();
@@ -24,13 +22,6 @@ public class Rate implements Action{
         this.site = site;
     }
 
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
 
     public String getObjectType() {
         return objectType;

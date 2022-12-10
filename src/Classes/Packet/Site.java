@@ -1,22 +1,10 @@
 package Classes.Packet;
 
-import Classes.Packet.Actions.Action;
-import Classes.Packet.Actions.ChangePage;
-import Classes.Packet.Actions.BuyPrem;
-import Classes.Packet.Actions.BuyTokens;
-import Classes.Packet.Actions.Filter;
-import Classes.Packet.Actions.Like;
-import Classes.Packet.Actions.Login;
-import Classes.Packet.Actions.Purchase;
-import Classes.Packet.Actions.Rate;
-import Classes.Packet.Actions.Register;
-import Classes.Packet.Actions.Search;
-import Classes.Packet.Actions.Watch;
+import Classes.Packet.Actions.*;
 import Classes.Packet.Pages.*;
 import Classes.fileio.ActionInput;
 import Classes.fileio.MovieInput;
 import Classes.fileio.UserInput;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +56,7 @@ public class Site {
         availablePages.add(new UpgradesPage());
         availablePages.add(new LogoutPage());
         availablePages.get(0).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(1), availablePages.get(2))));
-        availablePages.get(3).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(4), availablePages.get(6))));
+        availablePages.get(3).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(4), availablePages.get(6), availablePages.get(7))));
         availablePages.get(4).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(5), availablePages.get(7))));
         availablePages.get(5).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(6), availablePages.get(7))));
         availablePages.get(6).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(7))));
@@ -131,5 +119,14 @@ public class Site {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+
+    public void exec(ArrayList<Action> actions) {
+        ActionVisitor visitor = new ActionVisitorImpl();
+        int sum=0;
+        for(Action action : actions){
+            System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
+        }
     }
 }

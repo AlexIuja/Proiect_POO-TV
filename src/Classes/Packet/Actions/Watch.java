@@ -6,7 +6,6 @@ import Classes.fileio.ActionInput;
 
 public class Watch implements Action{
     private String type;
-    private String page;
     private String feature;
     private String objectType;
     private String movie;
@@ -14,7 +13,6 @@ public class Watch implements Action{
 
     public Watch(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         objectType = input.getObjectType();
         movie = input.getMovie();
@@ -27,14 +25,6 @@ public class Watch implements Action{
 
     public void setSite(Site site) {
         this.site = site;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
     }
 
     public String getObjectType() {

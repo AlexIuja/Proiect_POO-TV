@@ -6,7 +6,6 @@ import Classes.fileio.ActionInput;
 
 public class Login implements Action{
     private String type;
-    private String page;
     private String feature;
     private String name;
     private String password;
@@ -14,7 +13,6 @@ public class Login implements Action{
 
     public Login(ActionInput input, Site site) {
         type = input.getType();
-        page = input.getPage();
         feature = input.getFeature();
         name = input.getCredentials().getName();
         password = input.getCredentials().getPassword();
@@ -27,14 +25,6 @@ public class Login implements Action{
 
     public void setSite(Site site) {
         this.site = site;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
     }
 
     public String getFeature() {
