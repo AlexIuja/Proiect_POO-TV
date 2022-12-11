@@ -5,7 +5,6 @@ import Classes.Packet.Pages.*;
 import Classes.fileio.ActionInput;
 import Classes.fileio.MovieInput;
 import Classes.fileio.UserInput;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -127,34 +126,6 @@ public class Site {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-
-
-//    public void exec(ArrayList<Action> actions) {
-//        ActionVisitor visitor = new ActionVisitorImpl();
-//
-//        for(Action action : actions){
-//            Output p = action.accept(visitor);
-//            if(p != null)
-//                System.out.println(currentPage + " : " + action + " -> " + p);
-////            if(action.accept(visitor) == null)
-////                System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
-//        }
-//    }
-
-//    public void exec(ArrayList<Action> actions, ObjectWriter objectWriter, ObjectMapper objectMapper, ArrayNode output, String[] args) throws IOException {
-//        ActionVisitor visitor = new ActionVisitorImpl();
-//        String out;
-//        for (Action action : actions) {
-//            Output p = action.accept(visitor);
-//            System.out.println(currentPage + " : " + action + "         ->         " + p);
-//            if (p != null) {
-//                out = objectWriter.writeValueAsString(p);
-//                JsonNode n = objectMapper.readTree(out);
-//                output.add(n);
-//            }
-//        }
-//        objectWriter.writeValue(new File("output.txt"), output);
-//    }
 
     public void exec(ArrayList<Action> actions, ObjectWriter objectWriter, ObjectMapper objectMapper, ArrayNode output, String[] args) throws IOException {
         ActionVisitor visitor = new ActionVisitorImpl();

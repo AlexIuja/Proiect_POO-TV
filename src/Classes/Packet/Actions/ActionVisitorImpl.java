@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ActionVisitorImpl implements ActionVisitor{
+    ArrayList<Movie> moviesAllowedInCountry = new ArrayList<>();
     @Override
     public Output visit(ChangePage changePage, Site site) {
         Output output = new Output();
@@ -38,6 +39,7 @@ public class ActionVisitorImpl implements ActionVisitor{
                             currMovies.add(site.getMoviesIn().get(j));
                     }
                     site.getCurrentUser().setAllowedMovies(currMovies);
+                    setMoviesAllowedInCountry(currMovies);
                     output.setCurrentMoviesList(currMovies);
                     output.setError(null);
                     return output;
@@ -104,6 +106,7 @@ public class ActionVisitorImpl implements ActionVisitor{
     @Override
     public Output visit(Filter filter, Site site) {
         Output output = new Output();
+        site.getCurrentUser().setAllowedMovies(moviesAllowedInCountry);
         ArrayList<Movie> currMovies = new ArrayList<>();
         if(site.getCurrentPage().equals(site.getAvailablePages().get(4))) {
             if (filter.getContains() != null){
@@ -117,7 +120,7 @@ public class ActionVisitorImpl implements ActionVisitor{
                             currMovies.add(site.getCurrentUser().getAllowedMovies().get(i));
                     }
                     if(filter.getContains().getActors() != null && filter.getContains().getGenre() != null) {
-                        if(site.getCurrentUser().getAllowedMovies().get(i).getActors().containsAll(filter.getContains().getActors()) && site.getCurrentUser().getAllowedMovies().get(i).getActors().containsAll(filter.getContains().getActors()))
+                        if(site.getCurrentUser().getAllowedMovies().get(i).getActors().containsAll(filter.getContains().getActors()) && site.getCurrentUser().getAllowedMovies().get(i).getActors().containsAll(filter.getContains().getGenre()))
                             currMovies.add(site.getCurrentUser().getAllowedMovies().get(i));
                     }
                 }
@@ -136,6 +139,7 @@ public class ActionVisitorImpl implements ActionVisitor{
                     currMovies.sort(Comparator.comparing(Movie::getDuration));
 
             }
+            site.getCurrentUser().setAllowedMovies(currMovies);
             output.setCurrentUser(site.getCurrentUser());
             output.setCurrentMoviesList(currMovies);
             output.setError(null);
@@ -373,5 +377,13 @@ public class ActionVisitorImpl implements ActionVisitor{
         output.setCurrentUser(null);
         output.getCurrentMoviesList().clear();
         return output;
+    }
+
+    public ArrayList<Movie> getMoviesAllowedInCountry() {
+        return moviesAllowedInCountry;
+    }
+
+    public void setMoviesAllowedInCountry(ArrayList<Movie> moviesAllowedInCountry) {
+        this.moviesAllowedInCountry = moviesAllowedInCountry;
     }
 }
