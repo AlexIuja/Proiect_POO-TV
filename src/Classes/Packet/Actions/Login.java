@@ -63,4 +63,13 @@ public class Login implements Action{
     public Output accept(ActionVisitor visitor) {
         return visitor.visit(this, site);
     }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "feature='" + feature + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

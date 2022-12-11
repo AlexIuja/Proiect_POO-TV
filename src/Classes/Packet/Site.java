@@ -5,9 +5,14 @@ import Classes.Packet.Pages.*;
 import Classes.fileio.ActionInput;
 import Classes.fileio.MovieInput;
 import Classes.fileio.UserInput;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,32 +26,32 @@ public class Site {
 
 
     public Site(ArrayList<UserInput> usersInput, ArrayList<MovieInput> moviesInput, ArrayList<ActionInput> actionsInput) {
-        for(UserInput input : usersInput)
+        for (UserInput input : usersInput)
             usersIn.add(new User(input));
-        for(MovieInput input : moviesInput)
+        for (MovieInput input : moviesInput)
             moviesIn.add(new Movie(input));
-        for(ActionInput input : actionsInput)
-            if(input.getType().equals("change page"))
+        for (ActionInput input : actionsInput)
+            if (input.getType().equals("change page"))
                 actionsIn.add(new ChangePage(input, this));
-            else if(input.getFeature().equals("login"))
+            else if (input.getFeature().equals("login"))
                 actionsIn.add(new Login(input, this));
-            else if(input.getFeature().equals("register"))
+            else if (input.getFeature().equals("register"))
                 actionsIn.add(new Register(input, this));
-            else if(input.getFeature().equals("search"))
+            else if (input.getFeature().equals("search"))
                 actionsIn.add(new Search(input, this));
-            else if(input.getFeature().equals("filter"))
+            else if (input.getFeature().equals("filter"))
                 actionsIn.add(new Filter(input, this));
-            else if(input.getFeature().equals("purchase"))
+            else if (input.getFeature().equals("purchase"))
                 actionsIn.add(new Purchase(input, this));
-            else if(input.getFeature().equals("watch"))
+            else if (input.getFeature().equals("watch"))
                 actionsIn.add(new Watch(input, this));
-            else if(input.getFeature().equals("like"))
+            else if (input.getFeature().equals("like"))
                 actionsIn.add(new Like(input, this));
-            else if(input.getFeature().equals("rate"))
+            else if (input.getFeature().equals("rate"))
                 actionsIn.add(new Rate(input, this));
-            else if(input.getFeature().equals("buy premium account"))
+            else if (input.getFeature().equals("buy premium account"))
                 actionsIn.add(new BuyPrem(input, this));
-            else if(input.getFeature().equals("buy tokens"))
+            else if (input.getFeature().equals("buy tokens"))
                 actionsIn.add(new BuyTokens(input, this));
 
         availablePages.add(new HomepageNeautentificat());
@@ -57,21 +62,21 @@ public class Site {
         availablePages.add(new SeeDetailsPage());
         availablePages.add(new UpgradesPage());
         availablePages.add(new LogoutPage());
-        availablePages.get(0).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(1), availablePages.get(2))));
-        availablePages.get(3).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(4), availablePages.get(6), availablePages.get(7))));
-        availablePages.get(4).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(5), availablePages.get(7))));
-        availablePages.get(5).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(6), availablePages.get(7))));
-        availablePages.get(6).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(7))));
+        availablePages.get(0).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(0), availablePages.get(1), availablePages.get(2))));
+        availablePages.get(3).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(6), availablePages.get(7))));
+        availablePages.get(4).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(5), availablePages.get(7))));
+        availablePages.get(5).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(5), availablePages.get(6), availablePages.get(7))));
+        availablePages.get(6).setAllowedPagesToChange(new ArrayList<>(Arrays.asList(availablePages.get(3), availablePages.get(4), availablePages.get(6), availablePages.get(7))));
         currentPage = availablePages.get(0);
     }
 
     public void setUsers(ArrayList<UserInput> usersInput) {
-        for(UserInput input : usersInput)
+        for (UserInput input : usersInput)
             usersIn.add(new User(input));
     }
 
     public void setMovies(ArrayList<MovieInput> moviesInput) {
-        for(MovieInput input : moviesInput)
+        for (MovieInput input : moviesInput)
             moviesIn.add(new Movie(input));
     }
 
@@ -124,15 +129,44 @@ public class Site {
     }
 
 
-    public void exec(ArrayList<Action> actions) {
-        ActionVisitor visitor = new ActionVisitorImpl();
+//    public void exec(ArrayList<Action> actions) {
+//        ActionVisitor visitor = new ActionVisitorImpl();
+//
+//        for(Action action : actions){
+//            Output p = action.accept(visitor);
+//            if(p != null)
+//                System.out.println(currentPage + " : " + action + " -> " + p);
+////            if(action.accept(visitor) == null)
+////                System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
+//        }
+//    }
 
+//    public void exec(ArrayList<Action> actions, ObjectWriter objectWriter, ObjectMapper objectMapper, ArrayNode output, String[] args) throws IOException {
+//        ActionVisitor visitor = new ActionVisitorImpl();
+//        String out;
+//        for (Action action : actions) {
+//            Output p = action.accept(visitor);
+//            System.out.println(currentPage + " : " + action + "         ->         " + p);
+//            if (p != null) {
+//                out = objectWriter.writeValueAsString(p);
+//                JsonNode n = objectMapper.readTree(out);
+//                output.add(n);
+//            }
+//        }
+//        objectWriter.writeValue(new File("output.txt"), output);
+//    }
+
+    public void exec(ArrayList<Action> actions, ObjectWriter objectWriter, ObjectMapper objectMapper, ArrayNode output, String[] args) throws IOException {
+        ActionVisitor visitor = new ActionVisitorImpl();
+        String out;
         for(Action action : actions){
             Output p = action.accept(visitor);
-            if(p != null)
-                System.out.println(currentPage + " : " + action + " -> " + p);
-//            if(action.accept(visitor) == null)
-//                System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
+            if(p != null) {
+                out = objectWriter.writeValueAsString(p);
+                JsonNode n = objectMapper.readTree(out);
+                output.add(n);
             }
+        }
+        objectWriter.writeValue(new File(args[1]), output);
     }
 }

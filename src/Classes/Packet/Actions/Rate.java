@@ -75,4 +75,13 @@ public class Rate implements Action{
     public Output accept(ActionVisitor visitor) {
         return visitor.visit(this, site);
     }
+
+    @Override
+    public String toString() {
+        return "Rate{" +
+                "feature='" + feature + '\'' +
+                ", movie='" + movie + '\'' +
+                ", rate=" + rate +
+                '}';
+    }
 }

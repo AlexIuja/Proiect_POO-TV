@@ -64,4 +64,12 @@ public class Watch implements Action{
     public Output accept(ActionVisitor visitor) {
         return visitor.visit(this, site);
     }
+
+    @Override
+    public String toString() {
+        return "Watch{" +
+                "type='" + type + '\'' +
+                ", movie='" + movie + '\'' +
+                '}';
+    }
 }

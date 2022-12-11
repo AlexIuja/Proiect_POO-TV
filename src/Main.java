@@ -17,7 +17,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        Input inputData = objectMapper.readValue(new File("checker/resources/in/basic_9.json"), Input.class);
+
+
+//        Input inputData = objectMapper.readValue(new File("checker/resources/in/basic_10.json"), Input.class);
+        Input inputData = objectMapper.readValue(new File(args[0]), Input.class);
+
+
+
 
         Site site = new Site(inputData.getUsers(), inputData.getMovies(), inputData.getActions());
 
@@ -41,9 +47,14 @@ public class Main {
 //        for(int i = 0; i < site.getAvailablePages().get(3).getAllowedPagesToChange().size(); i++)
 //            System.out.println(site.getAvailablePages().get(3).getAllowedPagesToChange().get(i));
 
-        site.exec(site.getActionsIn());
+
+
+//        site.exec(site.getActionsIn());
         ArrayNode output = objectMapper.createArrayNode();
-        objectWriter.writeValue(new File("output.txt"), output);
+//        objectWriter.writeValue(new File("output.txt"), output);
+
+
+        site.exec(site.getActionsIn(), objectWriter, objectMapper, output, args);
 
     }
 

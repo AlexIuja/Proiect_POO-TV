@@ -47,13 +47,13 @@ public class ActionVisitorImpl implements ActionVisitor{
                     return null;
                 }
                 else if(changePage.getPage().equals("see details")) {
-                    for(int j = 0; j < site.getMoviesIn().size(); j++)
-                        if(site.getMoviesIn().get(j).getName().equals(changePage.getMovie())) {
+                    for(int j = 0; j < site.getCurrentUser().getAllowedMovies().size(); j++)
+                        if(site.getCurrentUser().getAllowedMovies().get(j).getName().equals(changePage.getMovie())) {
                             site.setCurrentPage(site.getAvailablePages().get(5));
-                            ((SeeDetailsPage)site.getAvailablePages().get(5)).setMovie(site.getMoviesIn().get(j));
+                            ((SeeDetailsPage)site.getAvailablePages().get(5)).setMovie(site.getCurrentUser().getAllowedMovies().get(j));
                             Output outputSeeDetails = new Output();
                             ArrayList<Movie> outputSeeDetailsCurrMovie = new ArrayList<>();
-                            outputSeeDetailsCurrMovie.add(site.getMoviesIn().get(j));
+                            outputSeeDetailsCurrMovie.add(site.getCurrentUser().getAllowedMovies().get(j));
                             outputSeeDetails.setError(null);
                             outputSeeDetails.setCurrentUser(site.getCurrentUser());
                             outputSeeDetails.setCurrentMoviesList(outputSeeDetailsCurrMovie);
@@ -87,11 +87,11 @@ public class ActionVisitorImpl implements ActionVisitor{
     @Override
     public Output visit(BuyTokens buyTokens, Site site) {
         Output output = new Output();
-        int balance = site.getCurrentUser().getCredentials().getBalance();
+        int balance = Integer.parseInt(site.getCurrentUser().getCredentials().getBalance());
         if(site.getCurrentPage().equals(site.getAvailablePages().get(6))) {
             if(balance >= buyTokens.getCount()) {
                 site.getCurrentUser().setTokensCount(buyTokens.getCount());
-                site.getCurrentUser().getCredentials().setBalance(balance - buyTokens.getCount());
+                site.getCurrentUser().getCredentials().setBalance(String.valueOf(balance - buyTokens.getCount()));
                 return null;
             }
         }
@@ -138,7 +138,7 @@ public class ActionVisitorImpl implements ActionVisitor{
             }
             output.setCurrentUser(site.getCurrentUser());
             output.setCurrentMoviesList(currMovies);
-            output.setError("null");
+            output.setError(null);
             return output;
         }
         output.setCurrentUser(null);
@@ -210,17 +210,17 @@ public class ActionVisitorImpl implements ActionVisitor{
             if( !(purchase.getMovie() != null && !"".equals(purchase.getMovie())) ){
                 purchase.setMovie(((SeeDetailsPage)site.getAvailablePages().get(5)).getMovie().getName());
             }
-            for(int i = 0; i < site.getMoviesIn().size(); i++) {
-                if(site.getMoviesIn().get(i).getName().equals(purchase.getMovie())) {
+            for(int i = 0; i < site.getCurrentUser().getAllowedMovies().size(); i++) {
+                if(site.getCurrentUser().getAllowedMovies().get(i).getName().equals(purchase.getMovie())) {
                     if(site.getCurrentUser().getCredentials().getAccountType().equals("premium")) {
                         if(site.getCurrentUser().getNumFreePremiumMovies() > 0) {
                             int numFreePremMovies = site.getCurrentUser().getNumFreePremiumMovies();
                             site.getCurrentUser().setNumFreePremiumMovies(numFreePremMovies - 1);
                             output.setError(null);
                             output.setCurrentUser(site.getCurrentUser());
-                            site.getCurrentUser().getPurchasedMovies().add(site.getMoviesIn().get(i));
+                            site.getCurrentUser().getPurchasedMovies().add(site.getCurrentUser().getAllowedMovies().get(i));
                             ArrayList<Movie> outputPurchaseCurrMovie = new ArrayList<>();
-                            outputPurchaseCurrMovie.add(site.getMoviesIn().get(i));
+                            outputPurchaseCurrMovie.add(site.getCurrentUser().getAllowedMovies().get(i));
                             output.setCurrentMoviesList(outputPurchaseCurrMovie);
                             return output;
                         }
@@ -228,11 +228,11 @@ public class ActionVisitorImpl implements ActionVisitor{
                             if(site.getCurrentUser().getTokensCount() >= 2) {
                                 int tokensCount = site.getCurrentUser().getTokensCount();
                                 site.getCurrentUser().setTokensCount(tokensCount - 2);
-                                site.getCurrentUser().getPurchasedMovies().add(site.getMoviesIn().get(i));
+                                site.getCurrentUser().getPurchasedMovies().add(site.getCurrentUser().getAllowedMovies().get(i));
                                 output.setError(null);
                                 output.setCurrentUser(site.getCurrentUser());
                                 ArrayList<Movie> outputPurchaseCurrMovie = new ArrayList<>();
-                                outputPurchaseCurrMovie.add(site.getMoviesIn().get(i));
+                                outputPurchaseCurrMovie.add(site.getCurrentUser().getAllowedMovies().get(i));
                                 output.setCurrentMoviesList(outputPurchaseCurrMovie);
                                 return output;
                             }
@@ -243,11 +243,11 @@ public class ActionVisitorImpl implements ActionVisitor{
                         if(site.getCurrentUser().getTokensCount() > 1) {
                             int tokensCountStandard = site.getCurrentUser().getTokensCount();
                             site.getCurrentUser().setTokensCount(tokensCountStandard - 2);
-                            site.getCurrentUser().getPurchasedMovies().add(site.getMoviesIn().get(i));
+                            site.getCurrentUser().getPurchasedMovies().add(site.getCurrentUser().getAllowedMovies().get(i));
                             output.setError(null);
                             output.setCurrentUser(site.getCurrentUser());
                             ArrayList<Movie> outputPurchaseCurrMovie = new ArrayList<>();
-                            outputPurchaseCurrMovie.add(site.getMoviesIn().get(i));
+                            outputPurchaseCurrMovie.add(site.getCurrentUser().getAllowedMovies().get(i));
                             output.setCurrentMoviesList(outputPurchaseCurrMovie);
                             return output;
                         }
@@ -274,17 +274,18 @@ public class ActionVisitorImpl implements ActionVisitor{
                     if(rate.getRate() <= 5 && rate.getRate() >= 0) {
                         site.getCurrentUser().getWatchedMovies().get(i).setNumRatings(site.getCurrentUser().getWatchedMovies().get(i).getNumRatings() + 1);
                         site.getCurrentUser().getWatchedMovies().get(i).getAllRatings().add(rate.getRate());
+                        int ratingSum = 0;
+                        for (int j = 0; j < site.getCurrentUser().getWatchedMovies().get(i).getAllRatings().size(); j++)
+                            ratingSum += site.getCurrentUser().getWatchedMovies().get(i).getAllRatings().get(j);
+                        site.getCurrentUser().getWatchedMovies().get(i).setRating(((double) ratingSum) / site.getCurrentUser().getWatchedMovies().get(i).getNumRatings());
+                        site.getCurrentUser().getRatedMovies().add(site.getCurrentUser().getWatchedMovies().get(i));
+                        output.setCurrentUser(site.getCurrentUser());
+                        output.setError(null);
+                        ArrayList<Movie> outputRateCurrMovie = new ArrayList<>();
+                        outputRateCurrMovie.add(site.getCurrentUser().getWatchedMovies().get(i));
+                        output.setCurrentMoviesList(outputRateCurrMovie);
+                        return output;
                     }
-                    int ratingSum = 0;
-                    for(int j = 0; j < site.getCurrentUser().getWatchedMovies().get(i).getAllRatings().size(); j++)
-                        ratingSum += site.getCurrentUser().getWatchedMovies().get(i).getAllRatings().get(j);
-                    site.getCurrentUser().getWatchedMovies().get(i).setRating(((double)ratingSum) / site.getCurrentUser().getWatchedMovies().get(i).getNumRatings());
-                    output.setCurrentUser(site.getCurrentUser());
-                    output.setError(null);
-                    ArrayList<Movie> outputRateCurrMovie = new ArrayList<>();
-                    outputRateCurrMovie.add(site.getCurrentUser().getWatchedMovies().get(i));
-                    output.setCurrentMoviesList(outputRateCurrMovie);
-                    return output;
                 }
         }
         output.getCurrentMoviesList().clear();

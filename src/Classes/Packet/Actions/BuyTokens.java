@@ -47,4 +47,12 @@ public class BuyTokens implements Action{
     public Output accept(ActionVisitor visitor) {
         return visitor.visit(this, site);
     }
+
+    @Override
+    public String toString() {
+        return "BuyTokens{" +
+                "feature='" + feature + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }
