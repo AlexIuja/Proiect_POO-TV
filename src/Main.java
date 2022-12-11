@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        Input inputData = objectMapper.readValue(new File("checker/resources/in/basic_6.json"), Input.class);
+        Input inputData = objectMapper.readValue(new File("checker/resources/in/basic_9.json"), Input.class);
 
         Site site = new Site(inputData.getUsers(), inputData.getMovies(), inputData.getActions());
 

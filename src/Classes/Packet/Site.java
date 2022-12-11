@@ -5,6 +5,8 @@ import Classes.Packet.Pages.*;
 import Classes.fileio.ActionInput;
 import Classes.fileio.MovieInput;
 import Classes.fileio.UserInput;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,9 +126,13 @@ public class Site {
 
     public void exec(ArrayList<Action> actions) {
         ActionVisitor visitor = new ActionVisitorImpl();
-        int sum=0;
+
         for(Action action : actions){
-            System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
-        }
+            Output p = action.accept(visitor);
+            if(p != null)
+                System.out.println(currentPage + " : " + action + " -> " + p);
+//            if(action.accept(visitor) == null)
+//                System.out.println(currentPage + " : " + action + "->" + action.accept(visitor));
+            }
     }
 }
