@@ -1,19 +1,22 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
 
-public final class BuyPrem implements Action {
+public final class BuyTokens implements Action {
     private String type;
     private String feature;
+    private int count;
     private Site site;
 
-    public BuyPrem(final ActionInput input, final Site site) {
+    public BuyTokens(final ActionInput input, final Site site) {
         type = input.getType();
         feature = input.getFeature();
+        count = input.getCount();
         this.site = site;
     }
+
 
     public String getType() {
         return type;
@@ -31,6 +34,15 @@ public final class BuyPrem implements Action {
         this.feature = feature;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(final int count) {
+        this.count = count;
+    }
+
+
     @Override
     public Output accept(final ActionVisitor visitor) {
         return visitor.visit(this, site);
@@ -38,8 +50,9 @@ public final class BuyPrem implements Action {
 
     @Override
     public String toString() {
-        return "BuyPrem{"
+        return "BuyTokens{"
                 + "feature='" + feature + '\''
+                + ", count=" + count
                 + '}';
     }
 }

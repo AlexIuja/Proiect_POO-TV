@@ -1,22 +1,39 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
 
-public final class BuyTokens implements Action {
+public final class Purchase implements Action {
     private String type;
     private String feature;
-    private int count;
+    private String objectType;
+    private String movie;
     private Site site;
 
-    public BuyTokens(final ActionInput input, final Site site) {
+    public Purchase(final ActionInput input, final Site site) {
         type = input.getType();
         feature = input.getFeature();
-        count = input.getCount();
+        objectType = input.getObjectType();
+        movie = input.getMovie();
         this.site = site;
     }
 
+    public String getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(final String objectType) {
+        this.objectType = objectType;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(final String movie) {
+        this.movie = movie;
+    }
 
     public String getType() {
         return type;
@@ -34,14 +51,6 @@ public final class BuyTokens implements Action {
         this.feature = feature;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(final int count) {
-        this.count = count;
-    }
-
 
     @Override
     public Output accept(final ActionVisitor visitor) {
@@ -50,9 +59,9 @@ public final class BuyTokens implements Action {
 
     @Override
     public String toString() {
-        return "BuyTokens{"
+        return "Purchase{"
                 + "feature='" + feature + '\''
-                + ", count=" + count
+                + ", movie='" + movie + '\''
                 + '}';
     }
 }

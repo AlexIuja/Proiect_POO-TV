@@ -1,10 +1,11 @@
-package classes.Packet.Pages;
+package classes.packet.pages;
 
-import classes.Packet.Movie;
+import classes.packet.Movie;
 
 public final class SeeDetailsPage extends SitePage {
+    private static SeeDetailsPage instance = new SeeDetailsPage();
     private Movie movie;
-    public SeeDetailsPage() {
+    private SeeDetailsPage() {
         super("see details");
     }
 
@@ -14,5 +15,8 @@ public final class SeeDetailsPage extends SitePage {
 
     public void setMovie(final Movie movie) {
         this.movie = movie;
+    }
+    public static SeeDetailsPage getInstance() {
+        return instance;
     }
 }

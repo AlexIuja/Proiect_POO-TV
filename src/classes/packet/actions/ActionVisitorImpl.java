@@ -1,10 +1,10 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Movie;
-import classes.Packet.Output;
-import classes.Packet.Pages.SeeDetailsPage;
-import classes.Packet.Site;
-import classes.Packet.User;
+import classes.packet.Movie;
+import classes.packet.Output;
+import classes.packet.pages.SeeDetailsPage;
+import classes.packet.Site;
+import classes.packet.User;
 import classes.fileio.CredentialsInput;
 
 import java.util.ArrayList;

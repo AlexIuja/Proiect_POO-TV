@@ -1,28 +1,28 @@
-package classes.Packet;
+package classes.packet;
 
-import classes.Packet.Actions.Action;
-import classes.Packet.Actions.ActionVisitor;
-import classes.Packet.Actions.ActionVisitorImpl;
-import classes.Packet.Actions.BuyPrem;
-import classes.Packet.Actions.BuyTokens;
-import classes.Packet.Actions.ChangePage;
-import classes.Packet.Actions.Filter;
-import classes.Packet.Actions.Like;
-import classes.Packet.Actions.Login;
-import classes.Packet.Actions.Purchase;
-import classes.Packet.Actions.Rate;
-import classes.Packet.Actions.Register;
-import classes.Packet.Actions.Search;
-import classes.Packet.Actions.Watch;
-import classes.Packet.Pages.HomepageAutentificat;
-import classes.Packet.Pages.HomepageNeautentificat;
-import classes.Packet.Pages.LoginPage;
-import classes.Packet.Pages.LogoutPage;
-import classes.Packet.Pages.MoviesPage;
-import classes.Packet.Pages.RegisterPage;
-import classes.Packet.Pages.SeeDetailsPage;
-import classes.Packet.Pages.SitePage;
-import classes.Packet.Pages.UpgradesPage;
+import classes.packet.actions.Action;
+import classes.packet.actions.ActionVisitor;
+import classes.packet.actions.ActionVisitorImpl;
+import classes.packet.actions.BuyPrem;
+import classes.packet.actions.BuyTokens;
+import classes.packet.actions.ChangePage;
+import classes.packet.actions.Filter;
+import classes.packet.actions.Like;
+import classes.packet.actions.Login;
+import classes.packet.actions.Purchase;
+import classes.packet.actions.Rate;
+import classes.packet.actions.Register;
+import classes.packet.actions.Search;
+import classes.packet.actions.Watch;
+import classes.packet.pages.HomepageAutentificat;
+import classes.packet.pages.HomepageNeautentificat;
+import classes.packet.pages.LoginPage;
+import classes.packet.pages.LogoutPage;
+import classes.packet.pages.MoviesPage;
+import classes.packet.pages.RegisterPage;
+import classes.packet.pages.SeeDetailsPage;
+import classes.packet.pages.SitePage;
+import classes.packet.pages.UpgradesPage;
 import classes.fileio.ActionInput;
 import classes.fileio.MovieInput;
 import classes.fileio.UserInput;
@@ -90,14 +90,14 @@ public final class Site {
                 actionsIn.add(new BuyTokens(input, this));
             }
         }
-        availablePages.add(new HomepageNeautentificat());
-        availablePages.add(new LoginPage());
-        availablePages.add(new RegisterPage());
-        availablePages.add(new HomepageAutentificat());
-        availablePages.add(new MoviesPage());
-        availablePages.add(new SeeDetailsPage());
-        availablePages.add(new UpgradesPage());
-        availablePages.add(new LogoutPage());
+        availablePages.add(HomepageNeautentificat.getInstance());
+        availablePages.add(LoginPage.getInstance());
+        availablePages.add(RegisterPage.getInstance());
+        availablePages.add(HomepageAutentificat.getInstance());
+        availablePages.add(MoviesPage.getInstance());
+        availablePages.add(SeeDetailsPage.getInstance());
+        availablePages.add(UpgradesPage.getInstance());
+        availablePages.add(LogoutPage.getInstance());
         availablePages.get(HOMEPAGENEAUT_ID).setAllowedPagesToChange(new ArrayList<>(Arrays
                 .asList(availablePages.get(HOMEPAGENEAUT_ID),
                         availablePages.get(LOGIN_ID), availablePages.get(REGISTER_ID))));

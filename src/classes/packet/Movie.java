@@ -1,4 +1,4 @@
-package classes.Packet;
+package classes.packet;
 
 import classes.fileio.MovieInput;
 import com.fasterxml.jackson.annotation.JsonIgnore;

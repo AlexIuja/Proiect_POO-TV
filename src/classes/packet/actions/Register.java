@@ -1,21 +1,20 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
+import classes.fileio.CredentialsInput;
 
-public final class Watch implements Action {
+public final class Register implements Action {
     private String type;
     private String feature;
-    private String objectType;
-    private String movie;
+    private CredentialsInput credentials;
     private Site site;
 
-    public Watch(final ActionInput input, final Site site) {
+    public Register(final ActionInput input, final Site site) {
         type = input.getType();
         feature = input.getFeature();
-        objectType = input.getObjectType();
-        movie = input.getMovie();
+        credentials = input.getCredentials();
         this.site = site;
     }
 
@@ -27,21 +26,6 @@ public final class Watch implements Action {
         this.site = site;
     }
 
-    public String getObjectType() {
-        return objectType;
-    }
-
-    public void setObjectType(final String objectType) {
-        this.objectType = objectType;
-    }
-
-    public String getMovie() {
-        return movie;
-    }
-
-    public void setMovie(final String movie) {
-        this.movie = movie;
-    }
 
     public String getType() {
         return type;
@@ -59,6 +43,14 @@ public final class Watch implements Action {
         this.feature = feature;
     }
 
+    public CredentialsInput getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(final CredentialsInput credentials) {
+        this.credentials = credentials;
+    }
+
 
     @Override
     public Output accept(final ActionVisitor visitor) {
@@ -67,9 +59,8 @@ public final class Watch implements Action {
 
     @Override
     public String toString() {
-        return "Watch{"
-                + "type='" + type + '\''
-                + ", movie='" + movie + '\''
+        return "Register{"
+                + "feature='" + feature + '\''
                 + '}';
     }
 }

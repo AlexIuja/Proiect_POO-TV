@@ -1,20 +1,21 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
-import classes.fileio.CredentialsInput;
 
-public final class Register implements Action {
+public final class Watch implements Action {
     private String type;
     private String feature;
-    private CredentialsInput credentials;
+    private String objectType;
+    private String movie;
     private Site site;
 
-    public Register(final ActionInput input, final Site site) {
+    public Watch(final ActionInput input, final Site site) {
         type = input.getType();
         feature = input.getFeature();
-        credentials = input.getCredentials();
+        objectType = input.getObjectType();
+        movie = input.getMovie();
         this.site = site;
     }
 
@@ -26,6 +27,21 @@ public final class Register implements Action {
         this.site = site;
     }
 
+    public String getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(final String objectType) {
+        this.objectType = objectType;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(final String movie) {
+        this.movie = movie;
+    }
 
     public String getType() {
         return type;
@@ -43,14 +59,6 @@ public final class Register implements Action {
         this.feature = feature;
     }
 
-    public CredentialsInput getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(final CredentialsInput credentials) {
-        this.credentials = credentials;
-    }
-
 
     @Override
     public Output accept(final ActionVisitor visitor) {
@@ -59,8 +67,9 @@ public final class Register implements Action {
 
     @Override
     public String toString() {
-        return "Register{"
-                + "feature='" + feature + '\''
+        return "Watch{"
+                + "type='" + type + '\''
+                + ", movie='" + movie + '\''
                 + '}';
     }
 }

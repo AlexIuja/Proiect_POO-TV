@@ -1,7 +1,7 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
 
 public final class ChangePage implements Action {

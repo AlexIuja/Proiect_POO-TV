@@ -1,4 +1,4 @@
-package classes.Packet;
+package classes.packet;
 
 import classes.fileio.CredentialsInput;
 import classes.fileio.UserInput;

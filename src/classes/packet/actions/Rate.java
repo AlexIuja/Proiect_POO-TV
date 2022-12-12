@@ -1,21 +1,24 @@
-package classes.Packet.Actions;
+package classes.packet.actions;
 
-import classes.Packet.Output;
-import classes.Packet.Site;
+import classes.packet.Output;
+import classes.packet.Site;
 import classes.fileio.ActionInput;
 
-public final class Like implements Action {
+public final class Rate implements Action {
     private String type;
     private String feature;
     private String objectType;
     private String movie;
+    private int rate;
+
     private Site site;
 
-    public Like(final ActionInput input, final Site site) {
+    public Rate(final ActionInput input, final Site site) {
         type = input.getType();
         feature = input.getFeature();
         objectType = input.getObjectType();
         movie = input.getMovie();
+        rate = input.getRate();
         this.site = site;
     }
 
@@ -52,6 +55,21 @@ public final class Like implements Action {
         this.feature = feature;
     }
 
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(final int rate) {
+        this.rate = rate;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(final Site site) {
+        this.site = site;
+    }
 
     @Override
     public Output accept(final ActionVisitor visitor) {
@@ -60,9 +78,10 @@ public final class Like implements Action {
 
     @Override
     public String toString() {
-        return "Like{"
+        return "Rate{"
                 + "feature='" + feature + '\''
                 + ", movie='" + movie + '\''
+                + ", rate=" + rate
                 + '}';
     }
 }

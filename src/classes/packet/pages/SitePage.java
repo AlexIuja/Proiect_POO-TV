@@ -1,4 +1,4 @@
-package classes.Packet.Pages;
+package classes.packet.pages;
 
 import java.util.ArrayList;
 

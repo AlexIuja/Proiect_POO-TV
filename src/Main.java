@@ -1,4 +1,4 @@
-import classes.Packet.Site;
+import classes.packet.Site;
 import classes.fileio.Input;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
