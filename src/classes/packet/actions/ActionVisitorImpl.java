@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public final class ActionVisitorImpl implements ActionVisitor {
+    //pentru fiecare functie voi incerca sa explic cum este implementata
+    //fara a intra prea mult in detalii, decat acolo unde nu este neaparat
+    //prea clar modul in care am gandit
+
     private ArrayList<Movie> moviesAllowedInCountry = new ArrayList<>();
     public ArrayList<Movie> getMoviesAllowedInCountry() {
         return moviesAllowedInCountry;
@@ -25,52 +29,54 @@ public final class ActionVisitorImpl implements ActionVisitor {
         for (int i = 0; i < site.getCurrentPage().getAllowedPagesToChange().size(); i++) {
             if (changePage.getPage().equals(site.getCurrentPage()
                     .getAllowedPagesToChange().get(i).getPageName())) {
-                if (changePage.getPage().equals("login")) {
-                    site.setCurrentPage(site.getAvailablePages().get(Site.LOGIN_ID));
-                    return null;
-                } else if (changePage.getPage().equals("register")) {
-                    site.setCurrentPage(site.getAvailablePages().get(Site.REGISTER_ID));
-                    return null;
-                } else if (changePage.getPage().equals("logout")) {
-                    site.setCurrentPage(site.getAvailablePages().get(Site.HOMEPAGENEAUT_ID));
-                    site.setCurrentUser(null);
-                    return null;
-                } else if (changePage.getPage().equals("movies")) {
-                    site.setCurrentPage(site.getAvailablePages().get(Site.MOVIES_ID));
-                    output.setCurrentUser(site.getCurrentUser());
-                    ArrayList<Movie> currMovies = new ArrayList<>();
-                    for (int j = 0; j < site.getMoviesIn().size(); j++) {
-                        if (!site.getMoviesIn().get(j).getCountriesBanned()
-                                .contains(site.getCurrentUser().getCredentials().getCountry())) {
-                            currMovies.add(site.getMoviesIn().get(j));
+                switch (changePage.getPage()) {
+                    case "login":
+                        site.setCurrentPage(site.getAvailablePages().get(Site.LOGIN_ID));
+                        return null;
+                    case "register":
+                        site.setCurrentPage(site.getAvailablePages().get(Site.REGISTER_ID));
+                        return null;
+                    case "logout":
+                        site.setCurrentPage(site.getAvailablePages().get(Site.HOMEPAGENEAUT_ID));
+                        site.setCurrentUser(null);
+                        return null;
+                    case "movies":
+                        site.setCurrentPage(site.getAvailablePages().get(Site.MOVIES_ID));
+                        output.setCurrentUser(site.getCurrentUser());
+                        ArrayList<Movie> currMovies = new ArrayList<>();
+                        for (int j = 0; j < site.getMoviesIn().size(); j++) {
+                            if (!site.getMoviesIn().get(j).getCountriesBanned()
+                                    .contains(site.getCurrentUser().getCredentials().getCountry())) {
+                                currMovies.add(site.getMoviesIn().get(j));
+                            }
                         }
-                    }
-                    site.getCurrentUser().setAllowedMovies(currMovies);
-                    setMoviesAllowedInCountry(currMovies);
-                    output.setCurrentMoviesList(currMovies);
-                    output.setError(null);
-                    return output;
-                } else if (changePage.getPage().equals("upgrades")) {
-                    site.setCurrentPage(site.getAvailablePages().get(Site.UPGRADES_ID));
-                    return null;
-                } else if (changePage.getPage().equals("see details")) {
-                    for (int j = 0; j < site.getCurrentUser()
-                            .getAllowedMovies().size(); j++) {
-                        if (site.getCurrentUser().getAllowedMovies().get(j)
-                                .getName().equals(changePage.getMovie())) {
-                            site.setCurrentPage(site.getAvailablePages().get(Site.SEEDETAILS_ID));
-                            ((SeeDetailsPage) site.getAvailablePages().get(Site.SEEDETAILS_ID))
-                                    .setMovie(site.getCurrentUser().getAllowedMovies().get(j));
-                            Output outputSeeDetails = new Output();
-                            ArrayList<Movie> outputSeeDetailsCurrMovie = new ArrayList<>();
-                            outputSeeDetailsCurrMovie.add(site.getCurrentUser()
-                                    .getAllowedMovies().get(j));
-                            outputSeeDetails.setError(null);
-                            outputSeeDetails.setCurrentUser(site.getCurrentUser());
-                            outputSeeDetails.setCurrentMoviesList(outputSeeDetailsCurrMovie);
-                            return outputSeeDetails;
+                        site.getCurrentUser().setAllowedMovies(currMovies);
+                        setMoviesAllowedInCountry(currMovies);
+                        output.setCurrentMoviesList(currMovies);
+                        output.setError(null);
+                        return output;
+                    case "upgrades":
+                        site.setCurrentPage(site.getAvailablePages().get(Site.UPGRADES_ID));
+                        return null;
+                    case "see details":
+                        for (int j = 0; j < site.getCurrentUser()
+                                .getAllowedMovies().size(); j++) {
+                            if (site.getCurrentUser().getAllowedMovies().get(j)
+                                    .getName().equals(changePage.getMovie())) {
+                                site.setCurrentPage(site.getAvailablePages().get(Site.SEEDETAILS_ID));
+                                ((SeeDetailsPage) site.getAvailablePages().get(Site.SEEDETAILS_ID))
+                                        .setMovie(site.getCurrentUser().getAllowedMovies().get(j));
+                                Output outputSeeDetails = new Output();
+                                ArrayList<Movie> outputSeeDetailsCurrMovie = new ArrayList<>();
+                                outputSeeDetailsCurrMovie.add(site.getCurrentUser()
+                                        .getAllowedMovies().get(j));
+                                outputSeeDetails.setError(null);
+                                outputSeeDetails.setCurrentUser(site.getCurrentUser());
+                                outputSeeDetails.setCurrentMoviesList(outputSeeDetailsCurrMovie);
+                                return outputSeeDetails;
+                            }
                         }
-                    }
+                        break;
                 }
             }
         }

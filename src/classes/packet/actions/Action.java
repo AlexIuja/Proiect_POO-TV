@@ -4,8 +4,8 @@ import classes.packet.Output;
 
 public interface Action {
     /**
-     *
-     * @param visitor constructie clasica pentru Visitor Pattern
+     * interfata necesara pentru Visitor Pattern
+     * @param visitor
      * @return
      */
     Output accept(ActionVisitor visitor);

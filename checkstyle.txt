@@ -1,2 +1,6 @@
 Starting audit...
+[ERROR] D:\CA\POO\POO TV\Proiect_POO-TV\.\src\classes\packet\actions\ActionVisitorImpl.java:32:17: switch without "default" clause. [MissingSwitchDefault]
+[ERROR] D:\CA\POO\POO TV\Proiect_POO-TV\.\src\classes\packet\actions\ActionVisitorImpl.java:49: Line is longer than 100 characters (found 101). [LineLength]
+[ERROR] D:\CA\POO\POO TV\Proiect_POO-TV\.\src\classes\packet\actions\ActionVisitorImpl.java:66: Line is longer than 100 characters (found 102). [LineLength]
 Audit done.
+Checkstyle ends with 3 errors.
